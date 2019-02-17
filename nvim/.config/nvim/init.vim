@@ -92,7 +92,7 @@ filetype plugin indent on
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-autocmd FileType javascript,python,html set expandtab
+autocmd FileType javascript,python,html,haskell set expandtab
 
 highlight LineNr ctermfg=10
 
@@ -116,6 +116,12 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 let g:fzf_layout = { 'down': '~60%' }
 
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 " ----------------------------------------------------------------------------
 " ALE & LSP
 " ----------------------------------------------------------------------------
@@ -132,6 +138,11 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 nnoremap <silent><Leader>gd :call LanguageClient#textDocument_definition()<CR>
+
+augroup FiletypeGroup
+  autocmd!
+  au BufNewFile,BufRead *.html set filetype=javascript.html
+augroup END
 
 " ----------------------------------------------------------------------------
 " LIGHTLINE
@@ -158,7 +169,7 @@ let g:lightline = {
       \             [ 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
       \              [ 'lineinfo' ],
-      \              [ 'changes', 'obsession', 'percent', 'filetype' ] ]
+      \              [ 'changes', 'obsession', 'percent', 'filetype', 'fileencoding', 'fileformat' ] ]
       \ },
       \ 'component_function': {
       \   'filename': 'LightLineFilename',
