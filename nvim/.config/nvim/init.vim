@@ -8,6 +8,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
 Plug 'maximbaz/lightline-ale'
+Plug 'posva/vim-vue'
 
  " Features
 Plug 'tpope/vim-commentary'
@@ -33,6 +34,8 @@ let g:deoplete#enable_at_startup = 1
 let g:ale_completion_enabled = 0
 
 let g:indentLine_fileTypeExclude = ['json']
+let g:indentLine_faster = 1
+let g:indentLine_setConceal = 0
 
 let mapleader = "\<Space>"
 
@@ -128,6 +131,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'html': ['htmlhint'],
+\   'python': ['flake8'],
+\   'haskell': ['stack_build'],
 \}
 let g:ale_lint_delay = 1000
 
