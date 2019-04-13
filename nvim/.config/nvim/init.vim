@@ -7,8 +7,10 @@ Plug 'unblevable/quick-scope'                " Highlight jump characters
 Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
+let g:indentLine_faster = 1
 Plug 'maximbaz/lightline-ale'
 Plug 'posva/vim-vue'
+Plug 'LnL7/vim-nix'
 
  " Features
 Plug 'tpope/vim-commentary'
@@ -27,6 +29,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'                       " Fzf vim plugin
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -34,10 +37,11 @@ let g:deoplete#enable_at_startup = 1
 let g:ale_completion_enabled = 0
 
 let g:indentLine_fileTypeExclude = ['json']
-let g:indentLine_faster = 1
-let g:indentLine_setConceal = 0
 
 let mapleader = "\<Space>"
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 set pastetoggle=<F2>
 set nowrap
@@ -134,13 +138,19 @@ let g:ale_linters = {
 \   'python': ['flake8'],
 \   'haskell': ['stack_build'],
 \}
+let g:ale_fixers = {
+\  'haskell': ['brittany'],
+\}
 let g:ale_lint_delay = 1000
+let g:ale_javascript_eslint_options = '-c ~/.eslintrc.js'
 
+let g:ale_set_highlights = 0
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['pyls'],
     \ }
+let g:LanguageClient_useVirtualText = 0
 
 nnoremap <silent><Leader>gd :call LanguageClient#textDocument_definition()<CR>
 
