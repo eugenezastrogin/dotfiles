@@ -1,0 +1,4 @@
+go_up += h
+go += l
+menu_down = j
+menu_up = k

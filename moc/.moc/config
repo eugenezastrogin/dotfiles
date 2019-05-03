@@ -1,0 +1,8 @@
+ReadTags = no
+MusicDir = "/mnt/nas/music"
+StartInMusicDir = yes
+FormatString = "%(n:%n:) - %(t:%t:)"
+SoundDriver = pulseaudio:alsa
+Theme = solarized
+Keymap = moc_gene_keymap
+Layout1 = directory(0,0,100%,100%)
