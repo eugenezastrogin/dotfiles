@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
  " Appearance
-Plug 'mkitt/tabline.vim'                     " Cleaner tabs
+" Plug 'mkitt/tabline.vim'                     " Cleaner tabs
 Plug 'chrisbra/Colorizer'                    " Show hex codes as colours
 Plug 'unblevable/quick-scope'                " Highlight jump characters
 Plug 'itchyny/lightline.vim'
@@ -9,7 +9,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 Plug 'maximbaz/lightline-ale'
-Plug 'posva/vim-vue'
+" Plug 'posva/vim-vue'
 Plug 'LnL7/vim-nix'
 
  " Features
@@ -26,6 +26,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'qpkorr/vim-bufkill'
 Plug 'junegunn/vim-peekaboo'
 Plug 'airblade/vim-gitgutter'
+Plug 'rhysd/git-messenger.vim'
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'                       " Fzf vim plugin
@@ -99,7 +100,7 @@ filetype plugin indent on
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-autocmd FileType javascript,python,html,haskell set expandtab
+autocmd FileType javascript,python,html,haskell,javascript.html set expandtab
 
 highlight LineNr ctermfg=10
 
@@ -134,11 +135,13 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " ----------------------------------------------------------------------------
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'svelte': ['javascript'],
 \   'html': ['htmlhint'],
 \   'python': ['flake8'],
 \   'haskell': ['stack_build'],
 \}
 let g:ale_fixers = {
+\  'svelte': ['eslint'],
 \  'haskell': ['brittany'],
 \}
 let g:ale_lint_delay = 1000
@@ -158,6 +161,8 @@ augroup FiletypeGroup
   autocmd!
   au BufNewFile,BufRead *.html set filetype=javascript.html
 augroup END
+
+au BufNewFile,BufRead,BufReadPost *.svelte set filetype=javascript.html
 
 " ----------------------------------------------------------------------------
 " LIGHTLINE
