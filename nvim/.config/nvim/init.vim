@@ -65,6 +65,10 @@ set signcolumn=yes
 " do not automatically add EOL symbol to open files
 " set nofixeol
 
+" Maintain undo history between sessions
+set undofile
+set undodir=~/.config/nvim/undodir
+
 " show trailing spaces and show tabs differently
 set listchars=tab:>-,nbsp:+,trail:~
 set list
