@@ -7,6 +7,7 @@ Plug 'unblevable/quick-scope'                " Highlight jump characters
 Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
+Plug 'leafgarland/typescript-vim'
 let g:indentLine_faster = 1
 Plug 'maximbaz/lightline-ale'
 " Plug 'posva/vim-vue'
@@ -104,7 +105,7 @@ filetype plugin indent on
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-autocmd FileType javascript,python,html,haskell,javascript.html set expandtab
+autocmd FileType json,css,typescript,javascript,python,html,haskell,javascript.html set expandtab
 
 highlight LineNr ctermfg=10
 
@@ -154,6 +155,7 @@ let g:ale_javascript_eslint_options = '-c ~/.eslintrc.js'
 let g:ale_set_highlights = 0
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['pyls'],
     \ }
