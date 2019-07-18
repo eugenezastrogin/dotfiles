@@ -105,7 +105,7 @@ filetype plugin indent on
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-autocmd FileType json,css,typescript,javascript,python,html,haskell,javascript.html set expandtab
+set expandtab
 
 highlight LineNr ctermfg=10
 
@@ -118,7 +118,7 @@ nnoremap <silent> <M-p> :Buffers<cr>
 
 let g:rg_command = '
 \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-\ -g "*.{ts,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
+\ -g "*.{ts,js,json,md,less,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
 \ -g "!{.config,.git,node_modules,bower_components,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 
 command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
