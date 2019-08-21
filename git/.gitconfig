@@ -1,0 +1,5 @@
+[user]
+	name = Eugene
+	email = aethelz@users.noreply.github.com
+[pull]
+	rebase = true

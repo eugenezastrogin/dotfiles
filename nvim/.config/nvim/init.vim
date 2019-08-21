@@ -12,6 +12,7 @@ let g:indentLine_faster = 1
 Plug 'maximbaz/lightline-ale'
 " Plug 'posva/vim-vue'
 Plug 'LnL7/vim-nix'
+Plug 'mbbill/undotree'
 
  " Features
 Plug 'tpope/vim-commentary'
@@ -109,6 +110,8 @@ set expandtab
 
 highlight LineNr ctermfg=10
 
+autocmd FileType javascript.html setlocal commentstring=<!--\ %s\ -->
+
 " ----------------------------------------------------------------------------
 " FZF
 " ----------------------------------------------------------------------------
@@ -118,7 +121,7 @@ nnoremap <silent> <M-p> :Buffers<cr>
 
 let g:rg_command = '
 \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-\ -g "*.{ts,js,json,md,less,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
+\ -g "*.{ts,js,json,md,less,pug,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
 \ -g "!{.config,.git,node_modules,bower_components,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 
 command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
@@ -140,6 +143,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " ----------------------------------------------------------------------------
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'typescript': [ 'tslint', 'tsserver', 'typecheck', 'xo' ],
 \   'svelte': ['javascript'],
 \   'html': ['htmlhint'],
 \   'python': ['flake8'],
@@ -162,6 +166,7 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_useVirtualText = 0
 
 nnoremap <silent><Leader>gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent><Leader>t :ALEHover<CR>
 
 augroup FiletypeGroup
   autocmd!
