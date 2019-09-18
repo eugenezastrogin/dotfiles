@@ -34,6 +34,9 @@ Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'                       " Fzf vim plugin
 Plug 'vimwiki/vimwiki'
 
+Plug 'neovimhaskell/haskell-vim'
+Plug 'itchyny/vim-haskell-indent'
+
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
@@ -55,6 +58,7 @@ set laststatus=2
 set hlsearch
 set incsearch
 set ignorecase smartcase
+set inccommand=nosplit
 " Required for operations modifying multiple buffers like rename.
 set hidden
 set autoread
