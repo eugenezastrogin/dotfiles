@@ -1,7 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
  " Appearance
-" Plug 'mkitt/tabline.vim'                     " Cleaner tabs
 Plug 'chrisbra/Colorizer'                    " Show hex codes as colours
 Plug 'unblevable/quick-scope'                " Highlight jump characters
 Plug 'itchyny/lightline.vim'
@@ -10,7 +9,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'leafgarland/typescript-vim'
 let g:indentLine_faster = 1
 Plug 'maximbaz/lightline-ale'
-" Plug 'posva/vim-vue'
 Plug 'LnL7/vim-nix'
 Plug 'mbbill/undotree'
 
@@ -19,12 +17,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-obsession'
 Plug 'pangloss/vim-javascript'
 Plug 'w0rp/ale'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'sourcegraph/javascript-typescript-langserver'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'qpkorr/vim-bufkill'
 Plug 'junegunn/vim-peekaboo'
 Plug 'airblade/vim-gitgutter'
@@ -39,7 +31,6 @@ Plug 'itchyny/vim-haskell-indent'
 
 call plug#end()
 
-let g:deoplete#enable_at_startup = 1
 let g:ale_completion_enabled = 0
 
 let g:indentLine_fileTypeExclude = ['json']
@@ -125,7 +116,7 @@ nnoremap <silent> <M-p> :Buffers<cr>
 
 let g:rg_command = '
 \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-\ -g "*.{ts,js,json,md,less,pug,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
+\ -g "*.{ts,js,json,md,less,pug,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,nix}"
 \ -g "!{.config,.git,node_modules,bower_components,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 
 command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
@@ -147,30 +138,36 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " ----------------------------------------------------------------------------
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'typescript': [ 'tslint', 'tsserver', 'typecheck', 'xo' ],
 \   'svelte': ['javascript'],
 \   'html': ['htmlhint'],
 \   'python': ['flake8'],
 \   'haskell': ['stack_build'],
 \}
-let g:ale_fixers = {
-\  'svelte': ['eslint'],
-\  'haskell': ['brittany'],
-\}
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent><Leader>gd <Plug>(coc-definition)
+nmap <silent><Leader>gt <Plug>(coc-type-definition)
+nmap <silent><Leader>gi <Plug>(coc-implementation)
+
+" Use t to show documentation in preview window
+nnoremap <silent><Leader>t :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 let g:ale_lint_delay = 1000
 let g:ale_javascript_eslint_options = '-c ~/.eslintrc.js'
 
 let g:ale_set_highlights = 0
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['pyls'],
-    \ }
-let g:LanguageClient_useVirtualText = 0
-
-nnoremap <silent><Leader>gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent><Leader>t :ALEHover<CR>
 
 augroup FiletypeGroup
   autocmd!
