@@ -115,11 +115,16 @@ nmap <C-p> :Files<cr>
 nnoremap <silent> <M-p> :Buffers<cr>
 
 let g:rg_command = '
-\ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-\ -g "*.{ts,js,json,md,less,pug,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,nix}"
-\ -g "!{.config,.git,node_modules,bower_components,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
+\ rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --color "always"
+\ -g "*.{ts,js,json,md,less,html,config,py,hs,conf,nix}"
+\ -g "!{.config,.git,node_modules,bower_components,vendor,build,dist}/*" '
 
-command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   g:rg_command.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -155,6 +160,7 @@ nmap <silent><Leader>gi <Plug>(coc-implementation)
 
 " Use t to show documentation in preview window
 nnoremap <silent><Leader>t :call <SID>show_documentation()<CR>
+nnoremap <silent><Leader>T :ALEHover<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -175,6 +181,8 @@ augroup FiletypeGroup
 augroup END
 
 au BufNewFile,BufRead,BufReadPost *.svelte set filetype=javascript.html
+
+nmap <Leader>gb <Plug>(git-messenger)
 
 " ----------------------------------------------------------------------------
 " LIGHTLINE
