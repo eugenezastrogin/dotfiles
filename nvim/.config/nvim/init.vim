@@ -7,6 +7,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 let g:indentLine_faster = 1
 Plug 'maximbaz/lightline-ale'
 Plug 'LnL7/vim-nix'
